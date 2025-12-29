@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
+from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report, mean_absolute_error
 
 
 
@@ -12,7 +12,6 @@ df = pd.read_csv("/Users/ethanjohn/Desktop/Data Science/Projects/MH_Dashboard2/S
 
 
 # Load dataset
-
 
 X = df[["Addicted_Score", "Avg_Daily_Usage_Hours", "Sleep_Hours_Per_Night", "Mental_Health_Score", "Academic_Level_Encoded", "Conflicts_Over_Social_Media", "Academic_Risk_Index"]]
 y = df["Affects_Academic_Performance_Encoded"]
@@ -63,6 +62,8 @@ avg_probability = np.median(probabilities)
 
 print(f" Median Predicted Confidence Score: {avg_probability}")
 
+mae = mean_absolute_error(y_test,y_pred)
+print(f"Mean Absolute Error: {mae}")
 
 joblib.dump(log_reg, "logistic_model.pkl")
 joblib.dump(scaler, "scaler.pkl")

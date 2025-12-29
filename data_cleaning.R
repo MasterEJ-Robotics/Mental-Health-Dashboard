@@ -1,7 +1,7 @@
 library(dplyr)
 library(readr)
 library(ggplot2)
-df <- read.csv("/Users/ethanjohn/Desktop/Data Science/Projects/MH_Dashboard2/Students Social Media Addiction copy 2.csv")
+df <- read.csv("/Users/ethanjohn/Desktop/Data Science/Projects/MH_Dashboard2/Students Social Media Addiction.csv")
 
 glimpse(df)
 

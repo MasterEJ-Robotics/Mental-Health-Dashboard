@@ -1,6 +1,7 @@
 library(dplyr)
 library(readr)
 library(ggplot2)
+library(scales)
 df <- read.csv("/Users/ethanjohn/Desktop/Data Science/Projects/MentalHealthDashboard/Students Social Media Addiction.csv")
 
 glimpse(df)
@@ -81,24 +82,13 @@ df_2 <- df %>%
       Gender == "Female" ~ 2
     ),
 
-    Academic_Risk_Index = (
-      ((Addicted_Score - min(Addicted_Score)) / 
-      (max(Addicted_Score) - min(Addicted_Score)) + 
-        
-      (Avg_Daily_Usage_Hours - min(Avg_Daily_Usage_Hours)) /
-      (max(Avg_Daily_Usage_Hours) - min(Avg_Daily_Usage_Hours)) +
-      
-      1 - (
-      (Sleep_Hours_Per_Night - min(Sleep_Hours_Per_Night)) /
-      (max(Sleep_Hours_Per_Night) - min(Sleep_Hours_Per_Night))
-      ) +
-      
-      1 - (
-      (Mental_Health_Score - min(Mental_Health_Score)) /
-      (max(Mental_Health_Score) - min(Mental_Health_Score))
-  )) / 4
-      
-    )
+
+    Academic_Risk_Index = rowMeans(cbind(
+      rescale(Addicted_Score),
+      rescale(Avg_Daily_Usage_Hours),
+      1- rescale(Sleep_Hours_Per_Night),
+      1- rescale(Mental_Health_Score)
+    ))
 
   )
 
